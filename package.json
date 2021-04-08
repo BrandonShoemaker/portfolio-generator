@@ -1,0 +1,24 @@
+{
+  "name": "portfolio-generator",
+  "version": "1.0.0",
+  "description": "Node html generator",
+  "main": "script.js",
+  "dependencies": {
+    "inquirer": "^8.0.0",
+    "os": "^0.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrandonShoemaker/portfolio-generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BrandonShoemaker/portfolio-generator/issues"
+  },
+  "homepage": "https://github.com/BrandonShoemaker/portfolio-generator#readme"
+}
