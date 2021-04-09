@@ -1,15 +1,7 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const generatePage = require('./src/page-template.js');
-const Choices = require('inquirer/lib/objects/choices');
-const PromptUI = require('inquirer/lib/ui/prompt');
 
-// const pageHTML = generatePage(name, github);
-
-// fs.writeFile("index.html", pageHTML, err => {
-//     if(err) throw err;
-//     console.log("Portfolio Construction complete!");
-// });
 
 const promptUser = () => {
     return inquirer
@@ -61,7 +53,13 @@ const promptUser = () => {
     ])
     .then(promptProject)
     .then(portfolioData => {
-        console.log(portfolioData)
+        const pageHTML = generatePage(portfolioData);
+
+        fs.writeFile("index.html", pageHTML, err => {
+            if(err) throw err;
+            console.log("Portfolio Construction complete!");
+        });
+
     });
 };
 
@@ -76,7 +74,7 @@ const promptProject = (portfolioData) =>{
     .prompt([
         {
             type: "input",
-            name: "projectName",
+            name: "name",
             message: "What is name of your project? (Required)",
             validate: projectNameInput => {
                 if(projectNameInput) return true;
@@ -88,7 +86,7 @@ const promptProject = (portfolioData) =>{
         },
         {
             type: "input",
-            name: "projectDescription",
+            name: "description",
             message: "Provide a description of the project (Required)",
             validate: projectDescription => {
                 if(projectDescription) return true;
@@ -138,5 +136,5 @@ const promptProject = (portfolioData) =>{
             return portfolioData;
     })
 }
-promptUser();
 
+promptUser();
