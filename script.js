@@ -1,6 +1,7 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const generatePage = require('./src/page-template.js');
+const {copyFile, writeFile} = require('./utils/generate-page');
 
 
 const promptUser = () => {
@@ -45,21 +46,20 @@ const promptUser = () => {
                 return false;
             }
         },
-        {
-            type: "input",
-            name: "about",
-            message: "Provide some information about yourself"
-        }
     ])
     .then(promptProject)
     .then(portfolioData => {
-        const pageHTML = generatePage(portfolioData);
-
-        fs.writeFile("index.html", pageHTML, err => {
-            if(err) throw err;
-            console.log("Portfolio Construction complete!");
+        fs.access("./dist", err => {
+            if(err) fs.mkdirSync("./dist");
         });
-
+        return generatePage(portfolioData);
+    })
+    .then(pageHTML => {
+        writeFile(pageHTML);
+    })
+    .then(copyFile)
+    .catch(err => {
+        console.log(err);
     });
 };
 
